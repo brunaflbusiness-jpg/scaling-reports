@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scaling Report | Ed. #12 — Mar 10–16</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --bg-white: #ffffff;
+            --bg-warm: #f5f1ec;
+            --bg-insight: #fef9ef;
+            --border: #e8e2da;
+            --border-strong: #d4ccc2;
+            --text: #1a1714;
+            --text-body: #3d3832;
+            --text-muted: #8a8279;
+            --text-caption: #a69e94;
+            --accent-red: #c0392b;
+            --accent-red-light: #fdf2f0;
+            --accent-blue: #2471a3;
+            --accent-blue-light: #eaf4fb;
+            --accent-orange: #d4790e;
+            --accent-orange-light: #fef6eb;
+            --accent-green: #1d8348;
+            --accent-green-light: #eef8f2;
+            --accent-purple: #6c3483;
+            --accent-purple-light: #f5eef8;
+            --accent-cyan: #117a8b;
+            --accent-cyan-light: #e8f6f8;
+            --font-serif: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text-body);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════ MASTHEAD ═══════ */
+        .masthead {
+            background: var(--bg-white);
+            border-bottom: 3px double var(--border-strong);
+            padding: 0;
+        }
+
+        .masthead-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 28px 24px 20px;
+            text-align: center;
+        }
+
+        .masthead-dateline {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-caption);
+            margin-bottom: 12px;
+        }
+
+        .masthead-title {
+            font-family: var(--font-serif);
+            font-size: clamp(42px, 6vw, 64px);
+            font-weight: 400;
+            color: var(--text);
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 6px;
+        }
+
+        .masthead-subtitle {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .masthead-rule {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin: 0 auto;
+            max-width: 500px;
+        }
+
+        .masthead-rule::before,
+        .masthead-rule::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .masthead-edition {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-caption);
+            white-space: nowrap;
+        }
+
+        /* ═══════ NICHE NAV ═══════ */
+        .niche-nav {
+            background: var(--text);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        .niche-nav-label {
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.35);
+            padding-right: 8px;
+            border-right: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .niche-nav-inner {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            gap: 0;
+            align-items: stretch;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .niche-nav-inner::-webkit-scrollbar { display: none; }
+
+        .niche-link {
+            font-family: var(--font-sans);
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            padding: 16px 22px;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .niche-link:hover {
+            color: rgba(255,255,255,0.9);
+            background: rgba(255,255,255,0.05);
+        }
+
+        .niche-link.active {
+            color: #ffffff;
+            border-bottom-color: var(--accent-red);
+            background: rgba(255,255,255,0.08);
+        }
+
+        .niche-link .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .nav-dot-intel { background: var(--accent-orange); }
+        .nav-dot-memory { background: var(--accent-purple); }
+        .nav-dot-wl { background: var(--accent-green); }
+        .nav-dot-hearing { background: var(--accent-cyan); }
+        .nav-dot-open { background: var(--accent-red); }
+
+        /* ═══════ MAIN CONTENT ═══════ */
+        .content {
+            max-width: 920px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+
+        /* ═══════ STRATEGIC INSIGHTS ═══════ */
+        .insights-block {
+            background: var(--bg-insight);
+            border: 1px solid #efe5d0;
+            border-radius: 2px;
+            padding: 32px 36px;
+            margin: 36px 0 40px;
+        }
+
+        .insights-header {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-orange);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .insights-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #efe5d0;
+        }
+
+        .insight-item {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 14px;
+            font-size: 14.5px;
+            line-height: 1.65;
+            color: var(--text-body);
+        }
+
+        .insight-item::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        .insight-item strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ═══════ NICHE SECTION ═══════ */
+        .niche-section {
+            margin-top: 48px;
+        }
+
+        .niche-header {
+            display: flex;
+            align-items: baseline;
+            gap: 16px;
+            margin-bottom: 32px;
+            border-bottom: 2px solid var(--text);
+            padding-bottom: 8px;
+        }
+
+        .niche-name {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            color: var(--text);
+            line-height: 1;
+        }
+
+        .niche-count {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-caption);
+            letter-spacing: 1px;
+        }
+
+        /* ═══════ STORY CARD ═══════ */
+        .story {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .story-header {
+            padding: 28px 32px 0;
+        }
+
+        .story-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 14px;
+        }
+
+        .tag {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 2px;
+            font-weight: 500;
+        }
+
+        .tag-channel-meta { background: var(--accent-blue-light); color: var(--accent-blue); }
+        .tag-channel-youtube { background: var(--accent-red-light); color: var(--accent-red); }
+        .tag-channel-native { background: var(--accent-orange-light); color: var(--accent-orange); }
+        .tag-scaling { background: var(--accent-green-light); color: var(--accent-green); }
+        .tag-new { background: var(--accent-purple-light); color: var(--accent-purple); }
+        .tag-product { background: var(--bg-warm); color: var(--text-muted); border: 1px solid var(--border); }
+        .tag-investigate { background: #fff3e0; color: #e65100; }
+
+        .story-headline {
+            font-family: var(--font-serif);
+            font-size: 24px;
+            line-height: 1.3;
+            color: var(--text);
+            margin-bottom: 16px;
+            letter-spacing: -0.3px;
+        }
+
+        .story-body {
+            padding: 0 32px;
+        }
+
+        .story-lede {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text-body);
+            margin-bottom: 20px;
+        }
+
+        .story-lede strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ═══════ STORY DETAILS (expandable) ═══════ */
+        .story-details {
+            border-top: 1px solid var(--border);
+            margin: 0 32px;
+        }
+
+        details {
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        details:last-child { border-bottom: none; }
+
+        summary {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding: 14px 0;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            user-select: none;
+        }
+
+        summary::-webkit-details-marker { display: none; }
+
+        summary::before {
+            content: '+';
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--accent-red);
+            width: 16px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        details[open] summary::before {
+            content: '−';
+        }
+
+        summary:hover { color: var(--text); }
+
+        .detail-content {
+            padding: 0 0 16px 24px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-body);
+        }
+
+        .detail-content li {
+            margin-bottom: 6px;
+            list-style: none;
+            position: relative;
+            padding-left: 16px;
+        }
+
+        .detail-content li::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            color: var(--text-caption);
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        .pattern-item {
+            padding-left: 16px;
+            position: relative;
+            margin-bottom: 6px;
+        }
+
+        .pattern-item::before {
+            content: '🌿';
+            position: absolute;
+            left: -4px;
+            font-size: 12px;
+        }
+
+        /* ═══════ CREATIVES TABLE ═══════ */
+        .creatives-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 8px 0 4px;
+        }
+
+        .creatives-table th {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: var(--text-caption);
+            text-align: left;
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .creatives-table td {
+            font-size: 13.5px;
+            padding: 10px 12px;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            color: var(--text-body);
+        }
+
+        .creatives-table tr:last-child td { border-bottom: none; }
+
+        .views-value {
+            font-family: var(--font-mono);
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .views-champion {
+            color: var(--accent-green);
+            font-weight: 700;
+        }
+
+        .creative-link-icon {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .creative-link-icon:hover { text-decoration: underline; }
+
+        /* ═══════ LINKS BAR ═══════ */
+        .story-links {
+            display: flex;
+            gap: 0;
+            border-top: 1px solid var(--border);
+            margin-top: 0;
+        }
+
+        .story-link {
+            flex: 1;
+            text-align: center;
+            padding: 14px 16px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--text-muted);
+            border-right: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        .story-link:last-child { border-right: none; }
+
+        .story-link:hover {
+            background: var(--bg-warm);
+            color: var(--text);
+        }
+
+        .story-link span {
+            display: block;
+            font-size: 9px;
+            color: var(--text-caption);
+            margin-top: 2px;
+            letter-spacing: 1.5px;
+        }
+
+        /* ═══════ STATUS BAR ═══════ */
+        .status-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 32px;
+            background: var(--bg-warm);
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .status-scaling { background: var(--accent-green); }
+        .status-new { background: var(--accent-purple); }
+        .status-investigate { background: var(--accent-orange); }
+
+        /* ═══════ VIDEO EMBED ═══════ */
+        .video-embed {
+            margin: 20px 0 8px;
+            padding: 0 32px;
+        }
+
+        .video-embed-label {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-caption);
+            margin-bottom: 10px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 4px;
+            background: #000;
+            border: 1px solid var(--border);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .drive-video-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+
+        .drive-video-card:hover {
+            background: #ece6dd;
+            border-color: var(--border-strong);
+        }
+
+        .drive-video-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--accent-red-light);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .drive-video-info {
+            flex: 1;
+        }
+
+        .drive-video-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .drive-video-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .drive-video-action {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--accent-red);
+            font-weight: 500;
+        }
+
+        /* ═══════ VSL NOTICE ═══════ */
+        .vsl-notice {
+            margin: 16px 32px 4px;
+            padding: 14px 18px;
+            background: var(--accent-green-light);
+            border: 1px solid #c8e6d0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13.5px;
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+
+        .vsl-notice-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .vsl-notice-unavailable {
+            background: var(--bg-warm);
+            border-color: var(--border);
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        /* ═══════ DISCLAIMER ═══════ */
+        .disclaimer {
+            margin: 0 32px 0;
+            padding: 12px 16px;
+            background: #fffbf0;
+            border-left: 3px solid #f0c040;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* ═══════ OPEN INVESTIGATIONS ═══════ */
+        .investigations {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            margin-top: 48px;
+            padding: 32px 36px;
+        }
+
+        .investigations-header {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-red);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .investigations-header::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        .investigation-item {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            font-size: 14px;
+            line-height: 1.65;
+        }
+
+        .investigation-item:last-child { border-bottom: none; }
+
+        .investigation-item strong {
+            color: var(--text);
+        }
+
+        /* ═══════ FOOTER ═══════ */
+        .report-footer {
+            text-align: center;
+            padding: 40px 24px 48px;
+            color: var(--text-caption);
+            font-size: 12px;
+            border-top: 3px double var(--border-strong);
+            margin-top: 48px;
+        }
+
+        .report-footer strong { color: var(--text-muted); }
+
+        /* ═══════ RESPONSIVE ═══════ */
+        @media (max-width: 640px) {
+            .masthead-inner { padding: 20px 16px 16px; }
+            .content { padding: 0 16px 40px; }
+            .story-header { padding: 20px 20px 0; }
+            .story-body { padding: 0 20px; }
+            .story-details { margin: 0 20px; }
+            .story-links { flex-wrap: wrap; }
+            .story-link { flex: 1 1 45%; }
+            .status-bar { padding: 12px 20px; }
+            .disclaimer { margin: 0 20px; }
+            .insights-block { padding: 24px 20px; }
+            .investigations { padding: 24px 20px; }
+        }
+
+        /* ═══════ PRINT ═══════ */
+        @media print {
+            body { background: white; }
+            .niche-nav { position: static; }
+            .story { break-inside: avoid; }
+            details { display: block; }
+            details[open] { display: block; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════ MASTHEAD ═══════════════════ -->
+<header class="masthead">
+    <div class="masthead-inner">
+        <div class="masthead-dateline">March 10 – 16, 2026 &nbsp;·&nbsp; Health &amp; Wellness</div>
+        <h1 class="masthead-title">The Scaling Report</h1>
+        <p class="masthead-subtitle">Curated intelligence on the highest-scaling funnels and creatives across Meta, YouTube &amp; Native</p>
+        <div class="masthead-rule">
+            <span class="masthead-edition">Edition No. 12</span>
+        </div>
+    </div>
+</header>
+
+<!-- ═══════════════════ NICHE NAV ═══════════════════ -->
+<nav class="niche-nav">
+    <div class="niche-nav-inner">
+        <div class="niche-nav-label">Jump to</div>
+        <a href="#insights" class="niche-link active"><span class="nav-dot nav-dot-intel"></span> Key Intel</a>
+        <a href="#memory" class="niche-link"><span class="nav-dot nav-dot-memory"></span> Memory</a>
+        <a href="#weightloss" class="niche-link"><span class="nav-dot nav-dot-wl"></span> Weight Loss</a>
+        <a href="#hearing" class="niche-link"><span class="nav-dot nav-dot-hearing"></span> Hearing</a>
+        <a href="#open" class="niche-link"><span class="nav-dot nav-dot-open"></span> Open Items</a>
+    </div>
+</nav>
+
+<!-- ═══════════════════ CONTENT ═══════════════════ -->
+<main class="content">
+
+    <!-- ────── STRATEGIC INSIGHTS ────── -->
+    <section class="insights-block" id="insights">
+        <div class="insights-header">Strategic Insights</div>
+
+        <div class="insight-item"><strong>Bill Gates VSL confirmed as the dominant Memory mechanism across Meta</strong> — two independent high-volume funnels (Mind Boost at 12k ads, and a secondary operation at 19k ads) are both running the Bill Gates VSL, making it the most widely deployed Memory sales letter this period. Cross-platform presence on YouTube strengthens conviction.</div>
+
+        <div class="insight-item"><strong>"Sixteen Minutes" micro-lead holds as a validated Memory opener on Meta</strong> — Primal Brain's funnel using this micro-lead format is at 10k+ ads with multiple creatives above 100k views, confirming sustained durability alongside the Bill Gates angle.</div>
+
+        <div class="insight-item"><strong>YouTube Memory is scaling explosively in real time</strong> — a single creative (Harvard researcher walking in snow) jumped from 200k to 450k views within hours, heavily lateralized across campaigns. Audio cloaker confirmed as standard YouTube evasion practice.</div>
+
+        <div class="insight-item"><strong>Newspaper/journal-style micro-lead format emerging on Facebook for Memory</strong> — typically a Taboola-native format, now being deployed on Meta with polished layout by a high-performing Mind Boost affiliate. Format innovation worth modeling.</div>
+
+        <div class="insight-item"><strong>Tinnitus confirmed as profitable niche on Native Ads</strong> — Echozen scaling on Taboola with GIF-based creatives, validated by Anstrex data. First tinnitus signal in this report series.</div>
+
+        <div class="insight-item"><strong>Convertri established as YouTube page builder standard</strong> — confirmed as critical infrastructure for YouTube affiliates, reportedly improving account durability. Actionable for any affiliate scaling on YouTube.</div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!--                     MEMORY                     -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section class="niche-section" id="memory">
+        <div class="niche-header">
+            <h2 class="niche-name">Memory</h2>
+            <span class="niche-count">4 funnels tracked</span>
+        </div>
+
+        <!-- STORY 1 -->
+        <article class="story">
+            <div class="status-bar">
+                <div class="status-indicator status-scaling"></div>
+                FULL SCALE &nbsp;·&nbsp; Updated Mar 16
+            </div>
+            <div class="story-header">
+                <div class="story-tags">
+                    <span class="tag tag-channel-meta">Meta / Facebook</span>
+                    <span class="tag tag-scaling">Scaling</span>
+                    <span class="tag tag-product">Primal Brain</span>
+                </div>
+                <h3 class="story-headline">Primal Brain dominates Meta Memory with 10k-ad lateral structure and 173k-view champion creative</h3>
+            </div>
+            <div class="story-body">
+                <p class="story-lede">Primal Brain is running the most established Memory funnel on Meta this period — the ad library shows approximately <strong>10,000 active ad sets</strong>, a textbook full-scale lateral operation. The VSL uses the <strong>"Sixteen Minutes" micro-lead opener</strong>, then develops through celebrity avatars before transitioning to an Asian doctor presenter. The champion creative sits at <strong>173k views</strong>, with four additional validated creatives at 122k, 50k, 34k, and 21k views respectively. The funnel is operated by affiliates using FAG America checkout infrastructure. Cross-platform signal confirmed: same VSL detected performing well on YouTube.</p>
+            </div>
+            <div class="vsl-notice">
+                <span class="vsl-notice-icon">&#128274;</span>
+                VSL available for this funnel — request access from your manager
+            </div>
+            <div class="story-details">
+                <details open>
+                    <summary>Winner Creatives</summary>
+                    <div class="detail-content">
+                        <table class="creatives-table">
+                            <thead>
+                                <tr><th>Creative</th><th>Views</th><th>Notes</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Champion</td>
+                                    <td><span class="views-value views-champion">173k</span></td>
+                                    <td style="font-size:12.5px;color:var(--text-muted)">Elderly man escape hook → celebrity → recipe format</td>
+                                    <td><a href="https://www.facebook.com/100095336511436/posts/25292560350418131/" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Creative 3</td>
+                                    <td><span class="views-value">122k</span></td>
+                                    <td></td>
+                                    <td><a href="https://www.facebook.com/61550707044763/posts/26053904670941047/" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Creative 5</td>
+                                    <td><span class="views-value">50k</span></td>
+                                    <td></td>
+                                    <td><a href="https://www.facebook.com/61551012107824/posts/35289674880619684/" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Creative 2</td>
+                                    <td><span class="views-value">34k</span></td>
+                                    <td></td>
+                                    <td><a href="https://www.facebook.com/61550582192543/posts/26449824214612850/" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Creative 4</td>
+                                    <td><span class="views-value">21k</span></td>
+                                    <td></td>
+                                    <td><a href="https://www.facebook.com/100095528285095/posts/26546176361642514/" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details>
+                    <summary>Strategy Notes</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li>FAG America checkout = established affiliate infrastructure</li>
+                            <li>"Sixteen Minutes" micro-lead = proven Memory opener with longevity</li>
+                            <li>5 validated creatives running simultaneously = mature lateral play</li>
+                            <li>Cross-platform (Meta + YouTube) = high-conviction funnel economics</li>
+                            <li>Creative format: elderly avatar hook → celebrity transition → recipe reveal</li>
+                        </ul>
+                    </div>
+                </details>
+                <details>
+                    <summary>Evergreen Patterns</summary>
+                    <div class="detail-content">
+                        <div class="pattern-item"><strong>Hook Pattern:</strong> "Sixteen Minutes" (time-based urgency micro-lead)</div>
+                        <div class="pattern-item"><strong>Structure Pattern:</strong> Lateral scaling via 10k+ ad sets</div>
+                        <div class="pattern-item"><strong>Format Pattern:</strong> Elder avatar hook → celebrity authority → recipe CTA</div>
+                        <div class="pattern-item"><strong>Platform Pattern:</strong> Cross-platform deployment (Meta + YouTube)</div>
+                    </div>
+                </details>
+            </div>
+            <div class="story-links">
+                <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=%22primbra1cl.online%22&search_type=keyword_exact_phrase" target="_blank" class="story-link">Ad Library <span>~10,000 ads</span></a>
+            </div>
+            <div class="disclaimer">⚠ We do not provide this offer. Creatives are for reference only.</div>
+        </article>
+
+        <!-- STORY 2 -->
+        <article class="story">
+            <div class="status-bar">
+                <div class="status-indicator status-scaling"></div>
+                FULL SCALE &nbsp;·&nbsp; Updated Mar 16
+            </div>
+            <div class="story-header">
+                <div class="story-tags">
+                    <span class="tag tag-channel-meta">Meta / Facebook</span>
+                    <span class="tag tag-scaling">Scaling</span>
+                    <span class="tag tag-product">Mind Boost</span>
+                </div>
+                <h3 class="story-headline">Mind Boost affiliate scales Bill Gates VSL to 12k ads with polished newspaper micro-lead</h3>
+            </div>
+            <div class="story-body">
+                <p class="story-lede">Mind Boost is emerging as a top Memory offer with an affiliate running the <strong>Bill Gates VSL</strong> — confirmed by Daniel as selling very well. The ad library shows approximately <strong>12,000 active ad sets</strong>, and the champion creative has reached <strong>119k views</strong>. The standout innovation is the micro-lead format: a <strong>newspaper/journal-style layout</strong> that is unusually polished for Facebook — this format is typically seen on Taboola but this affiliate has adapted it with a complete, professional layout including headlines and article structure. The VSL itself is the Bill Gates mechanism, currently the most widely deployed Memory sales letter.</p>
+            </div>
+            <div class="vsl-notice">
+                <span class="vsl-notice-icon">&#128274;</span>
+                VSL available for this funnel — request access from your manager
+            </div>
+            <div class="story-details">
+                <details open>
+                    <summary>Winner Creatives</summary>
+                    <div class="detail-content">
+                        <table class="creatives-table">
+                            <thead>
+                                <tr><th>Creative</th><th>Views</th><th>Notes</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Champion</td>
+                                    <td><span class="views-value views-champion">119k</span></td>
+                                    <td style="font-size:12.5px;color:var(--text-muted)">Presentation format + celebrity + 60 Minutes</td>
+                                    <td><a href="https://www.facebook.com/100091666328568/posts/25973059045648505/" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details>
+                    <summary>Strategy Notes</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li>Daniel confirmed: this affiliate is selling Mind Boost very well</li>
+                            <li>Bill Gates VSL = most used Memory mechanism right now</li>
+                            <li>Newspaper micro-lead on Facebook = format innovation (usually Taboola-native)</li>
+                            <li>12k ad sets = aggressive lateral scaling</li>
+                            <li>Format worth modeling: polished journal-style layout on Meta could bypass creative fatigue</li>
+                        </ul>
+                    </div>
+                </details>
+                <details>
+                    <summary>Evergreen Patterns</summary>
+                    <div class="detail-content">
+                        <div class="pattern-item"><strong>Hook Pattern:</strong> "Breaking News" (newspaper/journal authority framing)</div>
+                        <div class="pattern-item"><strong>Format Innovation:</strong> Taboola-native format adapted for Facebook</div>
+                        <div class="pattern-item"><strong>Mechanism Pattern:</strong> Bill Gates celebrity authority VSL</div>
+                        <div class="pattern-item"><strong>Structure Pattern:</strong> 12k+ ad sets lateral play</div>
+                    </div>
+                </details>
+            </div>
+            <div class="story-links">
+                <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=%22WATCH.NATURAL-LIFE.CLICK%22&search_type=keyword_exact_phrase" target="_blank" class="story-link">Ad Library <span>~12,000 ads</span></a>
+            </div>
+            <div class="disclaimer">⚠ We do not provide this offer. Creatives are for reference only.</div>
+        </article>
+
+        <!-- STORY 3 — YouTube -->
+        <article class="story">
+            <div class="status-bar">
+                <div class="status-indicator status-scaling"></div>
+                AGGRESSIVE SCALE &nbsp;·&nbsp; Updated Mar 16
+            </div>
+            <div class="story-header">
+                <div class="story-tags">
+                    <span class="tag tag-channel-youtube">YouTube</span>
+                    <span class="tag tag-scaling">Scaling</span>
+                    <span class="tag tag-product">Primal Brain</span>
+                </div>
+                <h3 class="story-headline">YouTube Memory creative explodes from 200k to 450k views in hours — Harvard snow walk hook</h3>
+            </div>
+            <div class="story-body">
+                <p class="story-lede">A Memory creative on YouTube is scaling in real time — captured at approximately 200k views in the morning, it had surged to nearly <strong>450k views by the afternoon</strong> of March 16. The creative features a man walking in snow, claiming to be a Harvard research director, with a <strong>recipe overlay on the side of the screen</strong>. The hook opens with the recipe visual, then transitions to the snow-walk narrative. This creative is <strong>heavily lateralized</strong> across multiple campaigns and channels. The VSL behind it is the same "Sixty Minutes" micro-lead that develops into the Asian doctor presenter. Audio cloaker confirmed as active evasion practice on YouTube. Pre-sell page uses <strong>Convertri</strong>, which is reported to improve YouTube account durability.</p>
+            </div>
+            <div class="video-embed">
+                <div class="video-embed-label">Champion Creative — 450k+ views</div>
+                <div class="video-wrapper">
+                    <iframe src="https://www.youtube.com/embed/hbMWKLqhDtM" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="vsl-notice" style="margin-top:12px">
+                <span class="vsl-notice-icon">&#128274;</span>
+                VSL available for this funnel — request access from your manager
+            </div>
+            <div class="story-details">
+                <details open>
+                    <summary>Winner Creatives</summary>
+                    <div class="detail-content">
+                        <table class="creatives-table">
+                            <thead>
+                                <tr><th>Creative</th><th>Views</th><th>Notes</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Champion</td>
+                                    <td><span class="views-value views-champion">~450k</span></td>
+                                    <td style="font-size:12.5px;color:var(--text-muted)">Harvard researcher walking in snow + recipe sidebar</td>
+                                    <td><a href="https://www.youtube.com/watch?v=hbMWKLqhDtM" target="_blank" class="creative-link-icon">View ↗</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details>
+                    <summary>Strategy Notes</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li>200k → 450k views in single day = explosive real-time scaling</li>
+                            <li>Heavily lateralized across multiple YouTube campaigns</li>
+                            <li>Audio cloaker still standard practice for YouTube Memory affiliates</li>
+                            <li>Convertri confirmed as page builder of choice for YouTube (account durability)</li>
+                            <li>Hook structure (recipe sidebar + authority walk) = highly modelable</li>
+                            <li>Recommendation: consider passing this creative format to affiliates for modeling</li>
+                        </ul>
+                    </div>
+                </details>
+                <details>
+                    <summary>Evergreen Patterns</summary>
+                    <div class="detail-content">
+                        <div class="pattern-item"><strong>Hook Pattern:</strong> "Authority Walk" (Harvard researcher + outdoor setting = credibility)</div>
+                        <div class="pattern-item"><strong>Format Pattern:</strong> Recipe sidebar overlay + narrative video</div>
+                        <div class="pattern-item"><strong>Platform Pattern:</strong> YouTube lateral via multiple campaign instances</div>
+                        <div class="pattern-item"><strong>Defense Pattern:</strong> Audio cloaker as standard YouTube evasion</div>
+                        <div class="pattern-item"><strong>Infrastructure:</strong> Convertri as YouTube page builder standard</div>
+                    </div>
+                </details>
+            </div>
+            <div class="story-links">
+                <a href="https://www.youtube.com/watch?v=hbMWKLqhDtM" target="_blank" class="story-link">Creative <span>~450k views</span></a>
+            </div>
+            <div class="disclaimer">⚠ We do not provide this offer. Creatives are for reference only.</div>
+        </article>
+
+        <!-- STORY 4 — Investigation -->
+        <article class="story">
+            <div class="status-bar">
+                <div class="status-indicator status-investigate"></div>
+                FULL SCALE — PRODUCT UNDER INVESTIGATION &nbsp;·&nbsp; Updated Mar 16
+            </div>
+            <div class="story-header">
+                <div class="story-tags">
+                    <span class="tag tag-channel-meta">Meta / Facebook</span>
+                    <span class="tag tag-investigate">Investigating</span>
+                    <span class="tag tag-product">Neurodyne / TBD</span>
+                </div>
+                <h3 class="story-headline">19k-ad Memory library flags product mismatch — likely multi-product testing behind Bill Gates VSL</h3>
+            </div>
+            <div class="story-body">
+                <p class="story-lede">A massive ad library was detected with approximately <strong>19,000 active ad sets</strong> — the highest single-library count in this report. The VSL uses the Bill Gates mechanism with a "Sixty Minutes" micro-lead format, including a background panel graphic (uncommon for this format). However, critical intelligence from Daniel flags an <strong>incompatibility</strong>: the checkout tracked to ClickBank affiliate nchm41 points to Neurodyne, but this affiliate is reportedly doing only ~30 sales per day — entirely inconsistent with 19k ad sets. The team's assessment: this affiliate is very likely <strong>testing multiple products</strong> behind the same library, and the primary revenue driver is probably Mind Boost rather than Neurodyne. Investigation underway via Insider.</p>
+            </div>
+            <div class="vsl-notice vsl-notice-unavailable">
+                <span class="vsl-notice-icon">&#128269;</span>
+                VSL under investigation — product confirmation pending via Insider
+            </div>
+            <div class="story-details">
+                <details>
+                    <summary>Strategy Notes</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li>19k ad sets = highest single-library count this period</li>
+                            <li>ClickBank affiliate: nchm41 → Neurodyne checkout tracked</li>
+                            <li>Daniel intel: only ~30 sales/day on Neurodyne = does not match 19k ads</li>
+                            <li>Strong suspicion: multi-product testing, likely Mind Boost as primary</li>
+                            <li>Investigation: library sent to Insider for product confirmation</li>
+                            <li>Common affiliate practice: test multiple products behind same infrastructure</li>
+                            <li>60 Minutes micro-lead + Bill Gates VSL + background panel = creative variant</li>
+                        </ul>
+                    </div>
+                </details>
+                <details>
+                    <summary>Evergreen Patterns</summary>
+                    <div class="detail-content">
+                        <div class="pattern-item"><strong>Strategy Pattern:</strong> Multi-product testing behind single library (affiliate diversification)</div>
+                        <div class="pattern-item"><strong>Mechanism Pattern:</strong> Bill Gates VSL as cross-product chassis</div>
+                        <div class="pattern-item"><strong>Intelligence Note:</strong> Ad count alone is insufficient signal — must cross-reference with sales data</div>
+                    </div>
+                </details>
+            </div>
+            <div class="story-links">
+                <a href="https://drive.google.com/file/d/1rc81GWM7SfzuauDinId4uCNbnxaUXccz/view" target="_blank" class="story-link">VSL <span>Google Drive</span></a>
+                <a href="https://web.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=%22MKTBRIGTON.LAT%22&search_type=keyword_exact_phrase" target="_blank" class="story-link">Ad Library <span>~19,000 ads</span></a>
+            </div>
+            <div class="disclaimer">⚠ We do not provide this offer. Creatives are for reference only.</div>
+        </article>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!--                  WEIGHT LOSS                   -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section class="niche-section" id="weightloss">
+        <div class="niche-header">
+            <h2 class="niche-name">Weight Loss</h2>
+            <span class="niche-count">1 funnel tracked</span>
+        </div>
+
+        <!-- STORY 5 -->
+        <article class="story">
+            <div class="status-bar">
+                <div class="status-indicator status-scaling"></div>
+                FULL SCALE — STABLE &nbsp;·&nbsp; Updated Mar 16
+            </div>
+            <div class="story-header">
+                <div class="story-tags">
+                    <span class="tag tag-channel-meta">Meta / Facebook</span>
+                    <span class="tag tag-scaling">Scaling</span>
+                    <span class="tag tag-product">Maha Diagami</span>
+                </div>
+                <h3 class="story-headline">Dr. Michaels Weight Loss VSL holds at $30k spend with 1.8 ROAS — recipe banner creatives validated</h3>
+            </div>
+            <div class="story-body">
+                <p class="story-lede">The Dr. Michaels VSL continues as an active Weight Loss funnel with confirmed ad manager data: <strong>$30,000 in spend at 1.8 ROAS</strong> on a single account — strong unit economics at scale. The ad library shows approximately <strong>7,000 active ad sets</strong>. Insider intel via Juan delivered the <strong>top 3 performing creatives directly from the ad manager</strong>. The standout creative format features a <strong>recipe banner opener</strong> — a visually engaging entry point that transitions into the sales narrative. An additional tactical note: this operation is using <strong>video extension</strong> on their creatives, which reportedly helps with ad approval on Meta. Gelatin trick creatives (Gelatage) remain confirmed as strong sellers but no new creatives were captured this period.</p>
+            </div>
+            <div class="vsl-notice">
+                <span class="vsl-notice-icon">&#128274;</span>
+                VSL available for this funnel — request access from your manager
+            </div>
+            <div class="story-details">
+                <details open>
+                    <summary>Winner Creatives</summary>
+                    <div class="detail-content">
+                        <table class="creatives-table">
+                            <thead>
+                                <tr><th>Creative</th><th>Source</th><th>Notes</th><th></th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Top 1</td>
+                                    <td><span class="views-value">Ad Manager</span></td>
+                                    <td style="font-size:12.5px;color:var(--text-muted)">Recipe banner + fraud warning copy + video extension</td>
+                                    <td><a href="https://fb.me/adspreview/facebook/21EuH4dCaKiNiJu" target="_blank" class="creative-link-icon">Preview ↗</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Top 2</td>
+                                    <td><span class="views-value">Ad Manager</span></td>
+                                    <td></td>
+                                    <td><a href="https://fb.me/adspreview/facebook/21aRfaaa18T21VJ" target="_blank" class="creative-link-icon">Preview ↗</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Top 3</td>
+                                    <td><span class="views-value">Ad Manager</span></td>
+                                    <td></td>
+                                    <td><a href="https://fb.me/adspreview/facebook/1Z76eEnNb9cSOVM" target="_blank" class="creative-link-icon">Preview ↗</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
+                <details>
+                    <summary>Strategy Notes</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li>$30k spend at 1.8 ROAS on single account = proven funnel economics</li>
+                            <li>Top 3 creatives sourced directly from ad manager via Insider</li>
+                            <li>Recipe banner format = engaging hook structure worth modeling</li>
+                            <li>Video extension on creatives = approval optimization tactic</li>
+                            <li>Gelatage still selling well per intel, but no new creatives captured (connection issues)</li>
+                            <li>7k ad sets = established lateral operation</li>
+                        </ul>
+                    </div>
+                </details>
+                <details>
+                    <summary>Evergreen Patterns</summary>
+                    <div class="detail-content">
+                        <div class="pattern-item"><strong>Hook Pattern:</strong> Recipe banner as video opener</div>
+                        <div class="pattern-item"><strong>Approval Tactic:</strong> Video extension for Meta creative approval</div>
+                        <div class="pattern-item"><strong>Format Pattern:</strong> Recipe visual → doctor authority narrative</div>
+                        <div class="pattern-item"><strong>Data Pattern:</strong> Insider ad manager access = highest-confidence performance data</div>
+                    </div>
+                </details>
+            </div>
+            <div class="story-links">
+                <a href="https://drive.google.com/file/d/1VqCR71hZf3_xnjciBM1TqTFt7QsB6JC2/view" target="_blank" class="story-link">VSL <span>Google Drive</span></a>
+                <a href="https://web.facebook.com/ads/library/?active_status=active&ad_type=all&country=ALL&q=%22video.infinityhealthpath.com%22&search_type=keyword_exact_phrase" target="_blank" class="story-link">Ad Library <span>~7,000 ads</span></a>
+            </div>
+            <div class="disclaimer">⚠ We do not provide this offer. Creatives are for reference only.</div>
+        </article>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!--                    HEARING                     -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section class="niche-section" id="hearing">
+        <div class="niche-header">
+            <h2 class="niche-name">Hearing</h2>
+            <span class="niche-count">1 funnel tracked</span>
+        </div>
+
+        <!-- STORY 6 -->
+        <article class="story">
+            <div class="status-bar">
+                <div class="status-indicator status-new"></div>
+                ENTERING SCALE — NEW ENTRY &nbsp;·&nbsp; Updated Mar 16
+            </div>
+            <div class="story-header">
+                <div class="story-tags">
+                    <span class="tag tag-channel-native">Native / Taboola</span>
+                    <span class="tag tag-new">New Entry</span>
+                    <span class="tag tag-product">Echozen</span>
+                </div>
+                <h3 class="story-headline">Echozen tinnitus offer confirms Native Ads as profitable — GIF format scaling on Taboola</h3>
+            </div>
+            <div class="story-body">
+                <p class="story-lede">Tinnitus is confirmed as a <strong>profitable niche on Native Ads</strong> based on cross-referenced intelligence from multiple operations. Echozen, a ClickBank product (affiliate: eqpogb), was detected scaling on Taboola with consistent frequency. The creative format uses <strong>GIF-based ads</strong> with direct response copy — a format not previously tracked in this report series for hearing products. Anstrex data confirms scale signals across the network. Memory funnels also continue running on Taboola, though detailed data was limited this period. The team has been asked to gather at minimum <strong>3 URLs for affiliate identification</strong> and ongoing backlink monitoring via Pulsar.</p>
+            </div>
+            <div class="story-details">
+                <details>
+                    <summary>Strategy Notes</summary>
+                    <div class="detail-content">
+                        <ul>
+                            <li>Tinnitus = first confirmed profitable hearing niche signal in this series</li>
+                            <li>GIF creative format on Taboola = worth investigating for other niches</li>
+                            <li>Anstrex validation = network-level scale confirmation</li>
+                            <li>ClickBank product (eqpogb affiliate) = trackable via backlink monitoring</li>
+                            <li>Action items: gather 3+ URLs for Pulsar tracking, identify affiliate operation</li>
+                            <li>Memory also active on Taboola (limited data, specialist to follow up)</li>
+                            <li>None of our Native affiliates have re-engaged yet</li>
+                        </ul>
+                    </div>
+                </details>
+                <details>
+                    <summary>Evergreen Patterns</summary>
+                    <div class="detail-content">
+                        <div class="pattern-item"><strong>Niche Pattern:</strong> Tinnitus as emerging profitable vertical on Native</div>
+                        <div class="pattern-item"><strong>Format Pattern:</strong> GIF-based ads for Taboola (motion without full video)</div>
+                        <div class="pattern-item"><strong>Platform Pattern:</strong> Taboola + Anstrex as Native intelligence stack</div>
+                    </div>
+                </details>
+            </div>
+            <div class="story-links">
+                <a href="https://eixo.lat/z/fox/nativ/echozen/l-4.3a/" target="_blank" class="story-link">VSL <span>Landing Page</span></a>
+            </div>
+            <div class="disclaimer">⚠ We do not provide this offer. Creatives are for reference only.</div>
+        </article>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════ -->
+    <!--              OPEN INVESTIGATIONS               -->
+    <!-- ══════════════════════════════════════════════ -->
+    <section class="investigations" id="open">
+        <div class="investigations-header">Open Investigations &amp; Next Actions</div>
+
+        <div class="investigation-item"><strong>Neurodyne/Mind Boost product mismatch</strong> — Insider investigation pending to confirm what product the 19k-ad affiliate (nchm41) is actually scaling.</div>
+
+        <div class="investigation-item"><strong>Diabetes on YouTube</strong> — specifically requested by team, specialist searching but no funnels detected yet. Priority intelligence need.</div>
+
+        <div class="investigation-item"><strong>Neuropathy on YouTube</strong> — previously requested funnel (likely Alex Barbosa) not found this period. Low evidence.</div>
+
+        <div class="investigation-item"><strong>News Break platform</strong> — specialist unable to spy this period (US phone access issue). Diabetes funnel status unknown. Will retry.</div>
+
+        <div class="investigation-item"><strong>Taboola affiliate URLs</strong> — specialist to deliver 3+ tracking URLs by end of day for Pulsar backlink monitoring.</div>
+
+        <div class="investigation-item"><strong>Affiliate checkout tracking protocol</strong> — team established new practice: capture affiliate names at checkout + accumulate URLs for ongoing Pulsar backlink monitoring of high-volume affiliates.</div>
+    </section>
+
+</main>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="report-footer">
+    <strong>The Scaling Report</strong> — Edition No. 12 &nbsp;·&nbsp; March 10–16, 2026<br>
+    Research &amp; curation by <strong>Victor Conegundes</strong><br><br>
+    <span style="font-size:11px;letter-spacing:1px">CONFIDENTIAL — FOR INTERNAL DISTRIBUTION ONLY</span>
+</footer>
+
+<!-- ═══════════════════ SMOOTH SCROLL ═══════════════════ -->
+<script>
+document.querySelectorAll('.niche-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        document.querySelectorAll('.niche-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+// Highlight active section on scroll
+const sections = document.querySelectorAll('.niche-section, .insights-block, .investigations');
+const navLinks = document.querySelectorAll('.niche-link');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+            });
+        }
+    });
+}, { rootMargin: '-20% 0px -60% 0px' });
+
+sections.forEach(section => observer.observe(section));
+</script>
+
+</body>
+</html>

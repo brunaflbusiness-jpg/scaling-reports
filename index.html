@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Scaling Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #faf8f5;
+            --bg-white: #ffffff;
+            --border: #e8e2da;
+            --border-strong: #d4ccc2;
+            --text: #1a1714;
+            --text-body: #3d3832;
+            --text-muted: #8a8279;
+            --text-caption: #a69e94;
+            --accent-red: #c0392b;
+            --accent-green: #1d8348;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-body);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+        .masthead {
+            text-align: center;
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 3px double var(--border-strong);
+        }
+        .masthead-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-caption);
+            margin-bottom: 12px;
+        }
+        .masthead h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 48px;
+            font-weight: 400;
+            color: var(--text);
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+        .masthead p {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: 17px;
+            color: var(--text-muted);
+        }
+        .editions-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-caption);
+            margin-bottom: 16px;
+        }
+        .edition-card {
+            display: block;
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            padding: 24px 28px;
+            margin-bottom: 12px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .edition-card:hover {
+            border-color: var(--border-strong);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            transform: translateY(-1px);
+        }
+        .edition-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .edition-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--accent-red);
+            font-weight: 500;
+        }
+        .edition-date {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--text-caption);
+        }
+        .edition-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 22px;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 6px;
+        }
+        .edition-summary {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .edition-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 9px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 8px;
+            border-radius: 2px;
+            background: #eef8f2;
+            color: var(--accent-green);
+            font-weight: 500;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            font-size: 12px;
+            color: var(--text-caption);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="masthead">
+            <div class="masthead-label">Health & Wellness Intelligence</div>
+            <h1>The Scaling Report</h1>
+            <p>Curated intelligence on the highest-scaling funnels and creatives</p>
+        </div>
+
+        <div class="editions-label">All Editions</div>
+
+        <!-- ADICIONE NOVAS EDICOES AQUI NO TOPO -->
+
+        <a href="/editions/ed-12.html" class="edition-card">
+            <div class="edition-card-top">
+                <span class="edition-number">Edition #12</span>
+                <span class="edition-date">Mar 10 – 16, 2026</span>
+            </div>
+            <div class="edition-title">Bill Gates VSL dominates Memory &middot; YouTube explodes to 450k views &middot; Tinnitus enters Native</div>
+            <div class="edition-summary">4 Memory funnels tracked, WL holds at 1.8 ROAS, Echozen tinnitus confirmed profitable on Taboola</div>
+            <div style="margin-top:8px"><span class="edition-badge">Latest</span></div>
+        </a>
+
+        <div class="footer">
+            Confidential &mdash; For internal distribution only
+        </div>
+    </div>
+</body>
+</html>
